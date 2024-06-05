@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  microservicea:
+    image: microservicea
+    build:
+      context: ./MicroserviceA
+      dockerfile: Dockerfile
+    ports:
+      - "5001:80"
+
+  microserviceb:
+    image: microserviceb
+    build:
+      context: ./MicroserviceB
+      dockerfile: Dockerfile
+    ports:
+      - "5002:80"
+
+  apigateway:
+    image: apigateway
+    build:
+      context: ./ApiGateway
+      dockerfile: Dockerfile
+    ports:
+      - "5003:80"
+    depends_on:
+      - microservicea
+      - microserviceb
